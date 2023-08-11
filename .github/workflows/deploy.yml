@@ -14,6 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2 
     
+    - name: Install Docker
+      uses: docker-practice/actions-setup-docker@master
+
+    - name: Add user to docker group
+      run: sudo usermod -aG docker ${USER}
     ##- name: Run SAST
       ##uses: anchore/scan-action@v3
       ##with:
