@@ -22,18 +22,7 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: anchore-reports.sarif
-    
-    - name: SARIF to HTML
-      uses: rickdeacon/sarif-to-html-action@v1
-      with:
-        sarif_file: ${{ steps.scan.outputs.sarif }}
-
-    - name: Upload HTML report   
-      uses: actions/upload-artifact@v3
-      with:
-        name: report
-        path: report.html
-
+        
     - name: Build and push image
       env:
         # pass image registry credentials as secrets  
