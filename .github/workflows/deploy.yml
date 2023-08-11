@@ -24,6 +24,11 @@ jobs:
       uses: anchore/scan-action@v3
       with:
         image: epma1985sp/nginx:latest
+    
+    - name: KSOC Image Scan
+      uses: ksoclabs/image-scan-action@v0.0.4
+      with:
+        fail_on_severity: medium
 
     - name: Build and push image
       env:
