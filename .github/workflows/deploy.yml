@@ -24,6 +24,9 @@ jobs:
         docker login -u $USERNAME -p $PASSWORD
         docker push epma1985sp/nginx:latest
 
+        - name: Docker build, Clair scan, ACR push
+          uses: MaciejBoguta/docker-clair-acr-action@v0.2.0
+
 
   ##deploy:
 
