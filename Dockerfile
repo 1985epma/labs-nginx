@@ -1,3 +1,3 @@
 FROM nginx:stable
 
-COPY index.html /usr/share/nginx/html
+COPY /Users/everton/Desktop/app_nginx/labs-nginx index.html /usr/share/nginx/html
