@@ -20,7 +20,7 @@ jobs:
         ##image: epma1985sp/nginx:latest
 
     - name: Scan with ZAP
-      uses: zaproxy/action-baseline@v0.3.0
+      uses: zaproxy/action-baseline@v0.9.0
       with: 
         target: 'http://app:8080'
 
