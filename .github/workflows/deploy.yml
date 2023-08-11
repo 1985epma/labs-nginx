@@ -31,9 +31,9 @@ jobs:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |  
-        docker build -t epma1985sp/nginx .
+        docker build -t epma1985sp/nginx:latest .
         docker login -u $USERNAME -p $PASSWORD
-        docker push epma1985sp/nginx
+        docker push epma1985sp/nginx:latest
 
   ##deploy:
 
