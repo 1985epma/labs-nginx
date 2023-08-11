@@ -27,6 +27,7 @@ jobs:
         docker login -u $USERNAME -p $PASSWORD
         docker push epma1985sp/nginx:latest
 
+
   ##deploy:
   
     ##needs: build
