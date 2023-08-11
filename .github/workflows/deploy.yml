@@ -17,12 +17,19 @@ jobs:
     - name: Run SAST
       uses: anchore/scan-action@v3
       id: scan
-
-    - name: Upload SARIF Reports
-      uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: anchore-reports.sarif
-        
+        image-name: epma1985sp/nginx:latest
+        anchore-engine-url: http://localhost:8228/v1
+        anchore-engine-username: admin
+        anchore-engine-password: foobar
+        fail-if-policy-not-passed: true
+        dockerfile-path: Dockerfile
+        dockerfile-contents: |
+          FROM nginx:latest
+          COPY index.html /usr/share/nginx/html/index.html
+          EXPOSE 80
+          CMD ["nginx", "-g", "daemon off;"]
+
     - name: Build and push image
       env:
         # pass image registry credentials as secrets  
