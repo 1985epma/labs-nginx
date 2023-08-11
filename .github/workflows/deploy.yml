@@ -28,7 +28,7 @@ jobs:
     - name: KSOC Image Scan
       uses: ksoclabs/image-scan-action@v0.0.4
       with:
-        fail_on_severity: "high"
+        fail_on_severity: high
 
     - name: Build and push image
       env:
