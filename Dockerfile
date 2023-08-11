@@ -1,4 +1,4 @@
-FROM nginx:stable
+FROM nginx:alpine
 
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
