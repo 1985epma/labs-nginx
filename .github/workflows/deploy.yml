@@ -19,15 +19,11 @@ jobs:
 
     - name: Add user to docker group
       run: sudo usermod -aG docker ${USER}
-    ##- name: Run SAST
-      ##uses: anchore/scan-action@v3
-      ##with:
-        ##image: epma1985sp/nginx:latest
-
-    - name: Scan with OWASP-ZAP
-      uses: zaproxy/action-baseline@v0.9.0
-      with: 
-        target: 'http://localhost:80'
+    
+    - name: Run SAST
+      uses: anchore/scan-action@v3
+      with:
+        image: epma1985sp/nginx:latest
 
     - name: Build and push image
       env:
