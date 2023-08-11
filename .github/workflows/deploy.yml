@@ -23,7 +23,7 @@ jobs:
     - name: Run SAST
       uses: anchore/scan-action@v3
       with:
-        image: epma1985sp/nginx
+        image: epma1985sp/nginx:latest
     
     - name: Build and push image
       env:
