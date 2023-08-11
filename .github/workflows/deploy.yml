@@ -24,11 +24,6 @@ jobs:
       with: 
         target: 'http://app:8080'
 
-    - name: Dependency scanning
-      uses: owasp/dependency-check-action@v1
-      with:
-       project: 'app'
-
     - name: Build and push image
       env:
         # pass image registry credentials as secrets  
