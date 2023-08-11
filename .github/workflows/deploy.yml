@@ -27,7 +27,7 @@ jobs:
     - name: Scan with ZAP
       uses: zaproxy/action-baseline@v0.9.0
       with: 
-        target: 'http://app:80'
+        target: 'http://localhost:80
 
     - name: Build and push image
       env:
