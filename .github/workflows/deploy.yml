@@ -20,7 +20,7 @@ jobs:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |  
-        docker build -t myimage: epma1985sp/labs-nginx .
+        docker build -t myimage:epma1985sp/labs-nginx .
         docker login -u $USERNAME -p $PASSWORD
         docker push myimage:latest
 
