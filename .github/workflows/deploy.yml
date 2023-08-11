@@ -1,0 +1,37 @@
+name: CI/CD with ArgoCD
+
+on: 
+  push:
+    branches:
+      - main
+      
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+  
+    steps:
+    - uses: actions/checkout@v2  
+
+    - name: Build and push image
+      env:
+        # pass image registry credentials as secrets  
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |  
+        docker build -t myimage:latest .
+        docker login -u $USERNAME -p $PASSWORD
+        docker push myimage:latest
+
+  deploy:
+
+    needs: build
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Trigger ArgoCD sync
+      run: |
+        # API call to trigger sync on ArgoCD  
+        curl -XPOST -u admin:password https://argocd.example.com/api/webhook/my-app-name
