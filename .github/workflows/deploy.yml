@@ -14,18 +14,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2 
     
-    - name: Run SAST
-      uses: anchore/scan-action@v3
-      with:
-        image: epma1985sp/nginx:latest
+    ##- name: Run SAST
+      ##uses: anchore/scan-action@v3
+      ##with:
+        ##image: epma1985sp/nginx:latest
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: anchore-reports
-        path: ./anchore-reports/
-  
+    - name: Scan with ZAP
+      uses: zaproxy/action-baseline@v0.3.0
+      with: 
+        target: 'http://app:8080'
 
+    - name: Dependency scanning
+      uses: owasp/dependency-check-action@v1
+      with:
+       project: 'app'
 
     - name: Build and push image
       env:
