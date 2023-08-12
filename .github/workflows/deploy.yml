@@ -8,6 +8,7 @@ on:
 jobs:
 
   build:
+
   
     runs-on: ubuntu-latest
   
@@ -26,6 +27,7 @@ jobs:
         docker build -t epma1985sp/nginx:latest .
         docker login -u $USERNAME -p $PASSWORD
         docker push epma1985sp/nginx:latest
+
 
   ##deploy:
   
