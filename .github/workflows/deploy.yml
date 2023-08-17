@@ -12,27 +12,22 @@ jobs:
   
     runs-on: ubuntu-latest
 
-    entrypoint: bash
-      args: 
-      - '-c'
-      - |-
-        apt-get update
-        apt-get -y install wget
-        apt-get -y install default-jdk
-        wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz
-        mkdir zap
-        tar -xvf ZAP_2.11.1_Linux.tar.gz
-        cd ZAP_2.11.1
-        ./zap.sh -cmd -quickurl https://www.example.com -quickprogress -quickout ../zap_report.html 
-    id: DAST Scan using OWASP ZAP
-artifacts:
-  objects:
-    location: 'gs://asecurityguru'
-    paths:
-      - zap_report.html
-  
+      
     steps:
     - uses: actions/checkout@v2 
+
+    - name: Run OWASP ZAP Scan
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install wget default-jdk
+        wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2.11.1_Linux.tar.gz
+        [ -d "zap" ] || mkdir zap
+        cd zap
+        [ -d "ZAP_2.11.1" ] || tar -xvf ../ZAP_2.11.1_Linux.tar.gz
+        cd ZAP_2.11.1
+        ./zap.sh -cmd -quickurl https://www.example.com -quickprogress -quickout ../zap_report.html
+        cd ..
+        rm -f ../ZAP_2.11.1_Linux.tar.gz
 
     - name: Run SAST  
       uses: anchore/scan-action@v3
