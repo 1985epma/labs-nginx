@@ -25,9 +25,22 @@ jobs:
         cd zap
         [ -d "ZAP_2.11.1" ] || tar -xvf ../ZAP_2.11.1_Linux.tar.gz
         cd ZAP_2.11.1
-        ./zap.sh -cmd -quickurl https://www.example.com -quickprogress -quickout ../zap_report.html
+        ./zap.sh -cmd -quickurl https://www.ideamaker.com.br -quickprogress -quickout ../zap_report.html
         cd ..
-        rm -f ../ZAP_2.11.1_Linux.tar.gz
+        rm -f ../ZAP_2.11.1_Linux.tar.gzx
+        
+
+    ##- name: Upload report to GCS
+      ##env:
+        ##GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+      ##run: |
+        ##echo "$GCLOUD_AUTH" | base64 --decode > gcloud_auth.json
+        ##curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-XXX.0.0-linux-x86_64.tar.gz
+        ##tar zxvf google-cloud-sdk-XXX.0.0-linux-x86_64.tar.gz
+        ##./google-cloud-sdk/install.sh
+        ##source google-cloud-sdk/path.bash.inc
+        ##gcloud auth activate-service-account --key-file=gcloud_auth.json
+        ##gsutil cp zap/zap_report.html gs://asecurityguru/
 
     - name: Run SAST  
       uses: anchore/scan-action@v3
