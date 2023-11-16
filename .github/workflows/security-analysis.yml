@@ -1,39 +1,41 @@
-name: GitHub Actions Security Workflow
+name: Security Analysis
 
-on: [push] # Este workflow será acionado sempre que houver um push no repositório
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  security:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v2 # Isso faz o checkout do código no ambiente de execução
+    - name: Checkout código
+      uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Configurar Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 14 # Você pode especificar a versão do Node.js que deseja usar
+        node-version: '14'
 
     - name: Instalar dependências
-      run: npm install # Instala as dependências do seu projeto
-
-    - name: Rodar Vulnerability Reporting
-      run: npm audit # Execute um comando que verifica as vulnerabilidades
-
-    - name: Gerar Dependency Graph
-      run: npm ls --prod --graph > dependency-graph.txt # Gere um gráfico de dependências
-
-    - name: Ativar Dependabot
       run: |
-        echo 'dependabot:' >> .github/workflows/dependabot.yml
-        echo '  security_updates:' >> .github/workflows/dependabot.yml
-        echo '    schedule:' >> .github/workflows/dependabot.yml
-        echo '      interval: daily' >> .github/workflows/dependabot.yml
-      working-directory: .github/workflows
+        npm install
+        npm audit fix
 
-    - name: Rodar Análise de Código
-      run: npm run lint # Execute sua análise de código (ajuste conforme necessário)
+    - name: Executar verificações de segurança
+      run: |
+        npm audit
+        npm audit --json > security-report.json
 
-    # Você pode adicionar mais etapas aqui para outros tipos de análises ou relatórios que desejar
+    - name: Gerar gráfico de dependências
+      run: |
+        npx dependency-cruiser --output-type json --output dependency-graph.json
 
+    - name: Executar Dependabot
+      run: |
+        # Configurar Dependabot, se aplicável
+
+    - name: Executar análise de código
+      run: |
+        # Configurar e rodar ferramenta de análise de código, se aplicável
