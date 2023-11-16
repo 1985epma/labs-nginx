@@ -1,0 +1,39 @@
+name: GitHub Actions Security Workflow
+
+on: [push] # Este workflow será acionado sempre que houver um push no repositório
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2 # Isso faz o checkout do código no ambiente de execução
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14 # Você pode especificar a versão do Node.js que deseja usar
+
+    - name: Instalar dependências
+      run: npm install # Instala as dependências do seu projeto
+
+    - name: Rodar Vulnerability Reporting
+      run: npm audit # Execute um comando que verifica as vulnerabilidades
+
+    - name: Gerar Dependency Graph
+      run: npm ls --prod --graph > dependency-graph.txt # Gere um gráfico de dependências
+
+    - name: Ativar Dependabot
+      run: |
+        echo 'dependabot:' >> .github/workflows/dependabot.yml
+        echo '  security_updates:' >> .github/workflows/dependabot.yml
+        echo '    schedule:' >> .github/workflows/dependabot.yml
+        echo '      interval: daily' >> .github/workflows/dependabot.yml
+      working-directory: .github/workflows
+
+    - name: Rodar Análise de Código
+      run: npm run lint # Execute sua análise de código (ajuste conforme necessário)
+
+    # Você pode adicionar mais etapas aqui para outros tipos de análises ou relatórios que desejar
+
