@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine3.17-slim
+FROM nginx:stable
 
 COPY  index.html /usr/share/nginx/html
 COPY script.js /usr/share/nginx/html/script.js
