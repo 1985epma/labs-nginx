@@ -37,6 +37,10 @@ jobs:
       with:
         image-ref: 'epma1985sp/nginx:latest' # Substitua com o nome da imagem corretamente
         exit-code: '1' # Opção para falhar na construção se for encontrada uma vulnerabilidade
+        format: 'table'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
 
 
   ##deploy:
