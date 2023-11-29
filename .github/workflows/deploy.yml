@@ -14,27 +14,10 @@ jobs:
 
       
     steps:
-    - uses: actions/checkout@v2 
+    - uses: actions/checkout@v4 
     
     - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Code Scanning
-      uses: github/codeql-action/analyze@v2
-      with:
-        languages: all # ou especifica as linguagens que deseja verificar
-
-    ##- name: Upload report to GCS
-      ##env:
-        ##GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-      ##run: |
-        ##echo "$GCLOUD_AUTH" | base64 --decode > gcloud_auth.json
-        ##curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-XXX.0.0-linux-x86_64.tar.gz
-        ##tar zxvf google-cloud-sdk-XXX.0.0-linux-x86_64.tar.gz
-        ##./google-cloud-sdk/install.sh
-        ##source google-cloud-sdk/path.bash.inc
-        ##gcloud auth activate-service-account --key-file=gcloud_auth.json
-        ##gsutil cp zap/zap_report.html gs://asecurityguru/
+      uses: actions/checkout@v4
 
     - name: Run SAST  
       uses: anchore/scan-action@v3
