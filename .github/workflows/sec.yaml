@@ -1,0 +1,26 @@
+name: Verificação de segurança com Trivy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Verificar código-fonte
+      uses: actions/checkout@v2
+
+    - name: Configurar ambiente Docker
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install docker.io
+        sudo systemctl start docker
+        sudo systemctl enable docker
+
+    - name: Verificar segurança com Trivy
+      run: |
+        docker pull aquasec/trivy
+        docker run --rm -v $(pwd):/workdir aquasec/trivy --exit-code 1 --no-progress /workdir
